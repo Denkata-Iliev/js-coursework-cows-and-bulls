@@ -3,7 +3,10 @@ import { numberOfDigits } from './modal.js';
 
 const bullsNumberEl = document.getElementById('bulls-number');
 const cowsNumberEl = document.getElementById('cows-number');
+const guessInput = document.getElementById('guess');
+const guessHistoryEl = document.getElementById('guess-history');
 
+guessInput.value = '';
 document.getElementById('guess-btn').addEventListener('click', guess);
 
 function playAudio() {
@@ -18,8 +21,7 @@ function playAudio() {
 // TODO game logic is done
 let rand = randUniqueDigits(numberOfDigits);
 function guess() {
-    const guessVal = document.getElementById('guess').value;
-    const guessHistoryEl = document.getElementById('guess-history');
+    const guessVal = guessInput.value;
 
     let cows = 0;
     let bulls = 0;
@@ -36,7 +38,7 @@ function guess() {
         }
     }
 
-    addGuessValToHistory(guessHistoryEl, guessVal);
+    addGuessValToHistory(guessVal);
     updateBullsAndCowsNumbers(bulls, cows);
 
     if (bulls === numberOfDigits) {
@@ -50,7 +52,7 @@ function guess() {
     console.log(`bulls: ${bulls}`);
 }
 
-function addGuessValToHistory(guessHistoryEl, guessVal) {
+function addGuessValToHistory(guessVal) {
     const span = document.createElement('span');
     span.innerHTML = guessVal;
     guessHistoryEl.appendChild(span);
@@ -63,14 +65,16 @@ function updateBullsAndCowsNumbers(bulls, cows) {
 
 function newGame(digitNumber) {
     rand = randUniqueDigits(digitNumber);
+    guessInput.value = '';
+    guessHistoryEl.innerHTML = '<p>Guesses: </p>';
 }
 
 function revealNumbers() {
     const numbers = document.getElementsByClassName('circle');
-    Array.from(numbers).forEach((el, idx) => {
+    Array.from(numbers).forEach((el, index) => {
         setTimeout(() => {
-            el.innerHTML = digitsArray[idx];
-        }, idx * 300);
+            el.innerHTML = digitsArray[index];
+        }, index * 300);
     });
 }
 

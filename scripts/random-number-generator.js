@@ -10,9 +10,10 @@ function checkForDuplicates(str) {
     return false;
 }
 
-const digitsArray = []
+let digitsArray = []
 function generateRandomNumberWithUniqueDigits(numberOfDigits) {
     let randNumbStr = '';
+    digitsArray = [];
     do {
         const numbersAfterDecimalPoint = Math.pow(10, numberOfDigits);
         const randNumber = Math.random() * numbersAfterDecimalPoint + numbersAfterDecimalPoint / 10;
