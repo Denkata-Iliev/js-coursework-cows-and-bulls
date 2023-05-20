@@ -1,11 +1,14 @@
-import { generateRandomNumberWithUniqueDigits as randUniqueDigits } from './random-number-generator.js';
+import { digitsArray, generateRandomNumberWithUniqueDigits as randUniqueDigits } from './random-number-generator.js';
 import { numberOfDigits } from './modal.js';
 
-document.getElementsByClassName('btn')[0].addEventListener('click', guess);
+const bullsNumberEl = document.getElementById('bulls-number');
+const cowsNumberEl = document.getElementById('cows-number');
+
+document.getElementById('guess-btn').addEventListener('click', guess);
 
 function playAudio() {
     // TODO toggle for sound effects is done
-    if (!document.getElementById('f').checked) {
+    if (!document.getElementById('soundsToggle').checked) {
         return;
     }
 
@@ -16,6 +19,7 @@ function playAudio() {
 let rand = randUniqueDigits(numberOfDigits);
 function guess() {
     const guessVal = document.getElementById('guess').value;
+    const guessHistoryEl = document.getElementById('guess-history');
 
     let cows = 0;
     let bulls = 0;
@@ -32,8 +36,12 @@ function guess() {
         }
     }
 
+    addGuessValToHistory(guessHistoryEl, guessVal);
+    updateBullsAndCowsNumbers(bulls, cows);
+
     if (bulls === numberOfDigits) {
-        alert('won');
+        // TODO when game finishes, reveal secret number (just change innerHTML)
+        revealNumbers();
         return;
     }
 
@@ -42,8 +50,28 @@ function guess() {
     console.log(`bulls: ${bulls}`);
 }
 
+function addGuessValToHistory(guessHistoryEl, guessVal) {
+    const span = document.createElement('span');
+    span.innerHTML = guessVal;
+    guessHistoryEl.appendChild(span);
+}
+
+function updateBullsAndCowsNumbers(bulls, cows) {
+    bullsNumberEl.innerHTML = bulls;
+    cowsNumberEl.innerHTML = cows;
+}
+
 function newGame(digitNumber) {
     rand = randUniqueDigits(digitNumber);
+}
+
+function revealNumbers() {
+    const numbers = document.getElementsByClassName('circle');
+    Array.from(numbers).forEach((el, idx) => {
+        setTimeout(() => {
+            el.innerHTML = digitsArray[idx];
+        }, idx * 300);
+    });
 }
 
 document.getElementById('log-btn').onclick = () => console.log(numberOfDigits);
