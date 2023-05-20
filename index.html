@@ -14,15 +14,6 @@
 
 <body>
     <!-- TODO if you want to export/import functions, use LiveServer -->
-    <div class="btn btn-success">PLAY</div>
-
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="f">
-        <label class="form-check-label" for="f">Checked switch checkbox input</label>
-    </div>
-
-    <div class="btn btn-primary" id="myBtn">modal</div>
-
     <!-- The Modal -->
     <div id="number-of-digits-modal" class="modal">
         <!-- Modal content -->
@@ -40,9 +31,41 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="form-check form-switch sound-toggle-wrapper d-flex align-items-center gap-1">
+        <input class="form-check-input" type="checkbox" role="switch" id="soundsToggle" />
+        <label class="form-check-label" for="soundsToggle">Sounds</label>
+    </div>
+
     <button class="btn btn-outline-danger" id="log-btn">LOG</button>
-    <input type="number" id="guess">
+
+    <!-- main -->
+    <main class="d-flex flex-column justify-content-between align-items-center">
+        <div class="secret-number-wrapper d-flex gap-2 mb-2" id="secret-number-wrap">
+        </div>
+
+        <div class="wrapper-testing d-flex justify-content-center w-100">
+            <div class="cows-wrapper text-center">
+                <p>Cows:</p>
+                <span id="cows-number">0</span>
+            </div>
+
+            <div class="input-and-buttons-wrapper mb-2 w-100 d-flex flex-column justify-content-center align-items-center">
+                <input type="number" id="guess" class="form-control w-50 border-1 border-black mb-2" />
+                <div class="btn btn-success mb-2" id="guess-btn">GUESS</div>
+                <div class="btn btn-outline-primary" id="open-new-game-modal-btn">NEW GAME</div>
+            </div>
+
+            <div class="bulls-wrapper text-center">
+                <p>Bulls:</p>
+                <span id="bulls-number">0</span>
+            </div>
+        </div>
+
+        <div class="guesses-wrapper d-flex flex-column justify-content-center align-items-center" id="guess-history">
+            <p>Guesses:</p>
+        </div>
+    </main>
 
     <script type="module" src="scripts/test.js"></script>
     <script type="module" src="scripts/modal.js"></script>

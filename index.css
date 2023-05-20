@@ -2,6 +2,39 @@
     box-sizing: border-box;
 }
 
+.cows-wrapper {
+    margin-left: 7rem;
+}
+
+.bulls-wrapper {
+    margin-right: 7rem;
+}
+
+.cows-wrapper,
+.bulls-wrapper {
+    font-size: 1.5rem;
+}
+
+.sound-toggle-wrapper {
+    font-size: 2rem;
+    margin: .25rem;
+}
+
+.circle {
+    width: 7rem;
+    height: 7rem;
+    font-size: 5rem;
+    text-shadow: 2px 2px 5px black;
+    color: crimson;
+    border-radius: 50%;
+    background-color: deepskyblue;
+    background-size: 5rem 5rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -49,7 +82,8 @@
     cursor: pointer;
 }
 
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
     display: flex;
     flex-direction: row-reverse;
     background-color: deepskyblue;
@@ -64,8 +98,12 @@
 }
 
 .modal-body {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     font-size: 2rem;
+}
+
+#digitsRangeInput {
+    cursor: pointer;
 }
 
 #digitsRangeInput::-webkit-slider-thumb {
