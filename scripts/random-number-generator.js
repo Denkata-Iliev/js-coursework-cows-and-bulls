@@ -10,6 +10,7 @@ function checkForDuplicates(str) {
     return false;
 }
 
+const digitsArray = []
 function generateRandomNumberWithUniqueDigits(numberOfDigits) {
     let randNumbStr = '';
     do {
@@ -19,7 +20,11 @@ function generateRandomNumberWithUniqueDigits(numberOfDigits) {
         console.log(randNumbStr);
     } while (checkForDuplicates(randNumbStr));
 
+    for (const d of randNumbStr) {
+        digitsArray.push(d);
+    }
+
     return randNumbStr;
 }
 
-export { generateRandomNumberWithUniqueDigits };
+export { generateRandomNumberWithUniqueDigits, digitsArray };
