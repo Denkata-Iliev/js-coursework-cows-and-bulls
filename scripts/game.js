@@ -1,5 +1,5 @@
 import { digitsArray, generateRandomNumberWithUniqueDigits as randUniqueDigits } from './random-number-generator.js';
-import { numberOfDigits } from './modal.js';
+import { guessesRemainingEl, numberOfDigits, numberOfGuessesDict } from './modal.js';
 import { playAudio } from './audio-player.js';
 
 const bullsNumberEl = document.getElementById('bulls-number');
@@ -13,22 +13,33 @@ guessInput.value = '';
 document.getElementById('guess-btn').addEventListener('click', guess);
 
 let rand = randUniqueDigits(numberOfDigits);
+let numberOfGuesses = numberOfGuessesDict[numberOfDigits];
 function guess() {
 
-    if (!guessInput.value || isNaN(guessInput.value)) {
-        errorMsgEl.innerHTML = `You must enter a ${numberOfDigits}-digit number.`;
+    const guessVal = guessInput.value;
+    if (!guessVal || isNaN(guessVal) || guessVal.length !== numberOfDigits) {
+        errorMsgEl.innerHTML = `You must enter a ${numberOfDigits}-digit number!`;
+        return;
+    } else {
+        errorMsgEl.innerHTML = '';
+    }
+
+    if (numberOfGuesses <= 0) {
+        revealNumbers();
+        errorMsgEl.innerHTML = `You lost!`;
+        errorMsgEl.classList.add('game-lost');
         return;
     }
 
-    const guessVal = guessInput.value;
-
     const [cows, bulls] = getBullsAndCows(rand, guessVal);
+
+    numberOfGuesses--;
+    guessesRemainingEl.innerHTML = numberOfGuesses;
 
     addGuessValToHistory(guessVal);
     updateBullsAndCowsNumbers(bulls, cows);
     playAudio(bulls, cows);
 
-    // TODO implement budget for guesses
     if (bulls === numberOfDigits) {
         revealNumbers();
         confettiEl.style.display = 'flex';
@@ -74,8 +85,9 @@ function updateBullsAndCowsNumbers(bulls, cows) {
 
 function newGame(digitNumber) {
     rand = randUniqueDigits(digitNumber);
+    numberOfGuesses = numberOfGuessesDict[digitNumber];
     guessInput.value = '';
-    errorMsgEl.innerHTML = '';
+    errorMsgEl.style.display = 'none';
     confettiEl.style.display = 'none';
     guessHistoryEl.innerHTML = '<p>Guesses: </p>';
 }
@@ -89,6 +101,6 @@ function revealNumbers() {
     });
 }
 
-document.getElementById('log-btn').onclick = () => console.log(numberOfDigits);
+document.getElementById('log-btn').onclick = () => console.log(numberOfGuesses);
 
 export { newGame };
