@@ -5,6 +5,7 @@ const bullsNumberEl = document.getElementById('bulls-number');
 const cowsNumberEl = document.getElementById('cows-number');
 const guessInput = document.getElementById('guess');
 const guessHistoryEl = document.getElementById('guess-history');
+const errorMsgEl = document.getElementById('error-msg');
 
 guessInput.value = '';
 document.getElementById('guess-btn').addEventListener('click', guess);
@@ -21,6 +22,12 @@ function playAudio() {
 // TODO game logic is done
 let rand = randUniqueDigits(numberOfDigits);
 function guess() {
+
+    if (!guessInput.value || isNaN(guessInput.value)) {
+        errorMsgEl.innerHTML = `You must enter a ${numberOfDigits}-digit number.`;
+        return;
+    }
+
     const guessVal = guessInput.value;
 
     let cows = 0;
@@ -66,6 +73,7 @@ function updateBullsAndCowsNumbers(bulls, cows) {
 function newGame(digitNumber) {
     rand = randUniqueDigits(digitNumber);
     guessInput.value = '';
+    errorMsgEl.innerHTML = '';
     guessHistoryEl.innerHTML = '<p>Guesses: </p>';
 }
 

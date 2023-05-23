@@ -32,6 +32,7 @@
         </div>
     </div>
 
+    <!-- Sound toggle -->
     <div class="form-check form-switch sound-toggle-wrapper d-flex align-items-center gap-1">
         <input class="form-check-input" type="checkbox" role="switch" id="soundsToggle" />
         <label class="form-check-label" for="soundsToggle">Sounds</label>
@@ -39,10 +40,14 @@
 
     <button class="btn btn-outline-danger" id="log-btn">LOG</button>
 
-    <!-- main -->
+    <!-- Main Content -->
     <main class="d-flex flex-column justify-content-between align-items-center">
-        <div class="secret-number-wrapper d-flex gap-2 mb-5" id="secret-number-wrap">
+
+        <!-- Secret Numbers -->
+        <div class="secret-number-wrapper d-flex gap-3 mb-5" id="secret-number-wrap">
         </div>
+
+        <p id="error-msg" class="text-danger text-uppercase"></p>
 
         <div class="wrapper-testing d-flex justify-content-center w-100">
             <div class="cows-wrapper text-center">
