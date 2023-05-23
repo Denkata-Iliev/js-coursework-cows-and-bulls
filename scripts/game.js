@@ -16,13 +16,14 @@ let rand = randUniqueDigits(numberOfDigits);
 let numberOfGuesses = numberOfGuessesDict[numberOfDigits];
 function guess() {
 
-    const guessVal = guessInput.value;
-    if (!guessVal || isNaN(guessVal) || guessVal.length !== numberOfDigits) {
+    if (!guessInput.value || isNaN(guessInput.value) || guessInput.value.length !== numberOfDigits) {
         errorMsgEl.innerHTML = `You must enter a ${numberOfDigits}-digit number!`;
         return;
     } else {
         errorMsgEl.innerHTML = '';
     }
+
+    const guessVal = guessInput.value;
 
     if (numberOfGuesses <= 0) {
         revealNumbers();

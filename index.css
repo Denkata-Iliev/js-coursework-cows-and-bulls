@@ -21,14 +21,13 @@ body {
 
 .cows-wrapper,
 .bulls-wrapper,
-.guesses-wrapper,
-.remaining-guesses-wrapper {
+.guesses-wrapper {
     font-size: 1.5rem;
 }
 
-.sound-toggle-wrapper {
+.sound-toggle-wrapper,
+.remaining-guesses-wrapper {
     font-size: 2rem;
-    margin: .25rem;
 }
 
 .circle {
