@@ -19,7 +19,8 @@ body {
 }
 
 .cows-wrapper,
-.bulls-wrapper {
+.bulls-wrapper,
+.guesses-wrapper {
     font-size: 1.5rem;
 }
 
@@ -125,6 +126,10 @@ body {
     height: 1rem;
 }
 
+.winning-guess {
+    animation: blink 1s infinite;
+}
+
 /* Confetti animation */
 .confetti {
     display: none;
@@ -134,7 +139,7 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    z-index: 1000;
+    z-index: -1;
 }
 
 .confetti-piece {
@@ -272,13 +277,33 @@ body {
 }
 
 .confetti-piece:nth-child(4n-7) {
-  background: red;
+    background: red;
 }
 
 @keyframes makeItRain {
-    from {opacity: 0;}
-    50% {opacity: 1;}
-    to {transform: translateY(500px);}
+    from {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(500px);
+    }
+}
+
+@keyframes blink {
+    0%, 49% {
+        background-color: green;
+        color: white;
+    }
+
+    50%, 100% {
+        background-color: transparent;
+        color: black;
+    }
 }
 
 /* Add Animation */

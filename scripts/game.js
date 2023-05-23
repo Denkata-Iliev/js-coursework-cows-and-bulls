@@ -1,25 +1,17 @@
 import { digitsArray, generateRandomNumberWithUniqueDigits as randUniqueDigits } from './random-number-generator.js';
 import { numberOfDigits } from './modal.js';
+import { playAudio } from './audio-player.js';
 
 const bullsNumberEl = document.getElementById('bulls-number');
 const cowsNumberEl = document.getElementById('cows-number');
 const guessInput = document.getElementById('guess');
 const guessHistoryEl = document.getElementById('guess-history');
 const errorMsgEl = document.getElementById('error-msg');
+const confettiEl = document.getElementById('confetti-element');
 
 guessInput.value = '';
 document.getElementById('guess-btn').addEventListener('click', guess);
 
-function playAudio() {
-    // TODO toggle for sound effects is done
-    if (!document.getElementById('soundsToggle').checked) {
-        return;
-    }
-
-    new Audio('Voicy_Say3 - cow.mp3').play();
-}
-
-// TODO game logic is done
 let rand = randUniqueDigits(numberOfDigits);
 function guess() {
 
@@ -30,33 +22,43 @@ function guess() {
 
     const guessVal = guessInput.value;
 
+    const [cows, bulls] = getBullsAndCows(rand, guessVal);
+
+    addGuessValToHistory(guessVal);
+    updateBullsAndCowsNumbers(bulls, cows);
+    playAudio(bulls, cows);
+
+    // TODO implement budget for guesses
+    if (bulls === numberOfDigits) {
+        revealNumbers();
+        confettiEl.style.display = 'flex';
+        guessHistoryEl.lastElementChild.classList.add('winning-guess');
+        return;
+    }
+
+    // TODO get a few more cow sounds into an array and choose a random one to play (audio-player.js)
+    console.log(`cows: ${cows}`);
+    console.log(`bulls: ${bulls}`);
+}
+
+function getBullsAndCows(randomNumberStr, guessValue) {
     let cows = 0;
     let bulls = 0;
-    for (let i = 0; i < rand.length; i++) {
-        const c = rand.charAt(i);
-        if (!guessVal.includes(c)) {
+
+    for (let i = 0; i < randomNumberStr.length; i++) {
+        const c = randomNumberStr.charAt(i);
+        if (!guessValue.includes(c)) {
             continue;
         }
 
-        if (guessVal.charAt(i) === c) {
+        if (guessValue.charAt(i) === c) {
             bulls++;
         } else {
             cows++;
         }
     }
 
-    addGuessValToHistory(guessVal);
-    updateBullsAndCowsNumbers(bulls, cows);
-
-    if (bulls === numberOfDigits) {
-        // TODO when game finishes, reveal secret number (just change innerHTML)
-        revealNumbers();
-        return;
-    }
-
-    // TODO get a few more cow sounds into an array and choose a random one to play
-    console.log(`cows: ${cows}`);
-    console.log(`bulls: ${bulls}`);
+    return [cows, bulls];
 }
 
 function addGuessValToHistory(guessVal) {
@@ -74,6 +76,7 @@ function newGame(digitNumber) {
     rand = randUniqueDigits(digitNumber);
     guessInput.value = '';
     errorMsgEl.innerHTML = '';
+    confettiEl.style.display = 'none';
     guessHistoryEl.innerHTML = '<p>Guesses: </p>';
 }
 

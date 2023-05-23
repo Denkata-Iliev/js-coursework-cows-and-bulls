@@ -1,6 +1,5 @@
-import { newGame } from "./test.js";
+import { newGame } from "./game.js";
 
-//TODO change button id
 const modal = document.getElementById('number-of-digits-modal');
 const openNewGameModal = document.getElementById('open-new-game-modal-btn');
 const closeBtn = document.getElementById('modal-close-btn');
