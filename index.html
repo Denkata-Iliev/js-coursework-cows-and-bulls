@@ -40,7 +40,7 @@
             </div>
             <div class="modal-body d-flex flex-column flex-wrap align-items-center">
                 <label for="digitsRangeInput" class="form-label" id="range-label">Digits: 5</label>
-                <input type="range" class="form-range w-50 d-block" min="4" max="7" id="digitsRangeInput" value="5" />
+                <input type="range" class="form-range w-50 d-block" min="4" max="7" id="digitsRangeInput" />
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button class="btn btn-primary" id="new-game-btn">NEW GAME</button>
@@ -49,9 +49,16 @@
     </div>
 
     <!-- Sound toggle -->
-    <div class="form-check form-switch sound-toggle-wrapper d-flex align-items-center gap-1">
-        <input class="form-check-input" type="checkbox" role="switch" id="soundsToggle" />
-        <label class="form-check-label" for="soundsToggle">Sounds</label>
+    <div class="sound-and-remaining-guesses-wrapper d-flex justify-content-between align-items-center">
+        <div class="form-check form-switch sound-toggle-wrapper d-flex align-items-center gap-1 m-3">
+            <input class="form-check-input" type="checkbox" role="switch" id="soundsToggle" />
+            <label class="form-check-label" for="soundsToggle">Sounds</label>
+        </div>
+
+        <div class="remaining-guesses-wrapper m-3">
+            <span>Guesses Remaining: </span>
+            <span id="guesses-remaining"></span>
+        </div>
     </div>
 
     <button class="btn btn-outline-danger" id="log-btn">LOG</button>
@@ -63,7 +70,7 @@
         <div class="secret-number-wrapper d-flex gap-3 mb-5" id="secret-number-wrap">
         </div>
 
-        <p id="error-msg" class="text-danger text-uppercase"></p>
+        <p id="error-msg" class="p-2 text-uppercase fw-bold"></p>
 
         <div class="wrapper-testing d-flex justify-content-center w-100">
             <div class="cows-wrapper text-center">
