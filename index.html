@@ -9,7 +9,7 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+    <title>Bulls and Cows</title>
 </head>
 
 <body>
@@ -43,16 +43,29 @@
                 <input type="range" class="form-range w-50 d-block" min="4" max="7" id="digitsRangeInput" />
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-primary" id="new-game-btn">NEW GAME</button>
+                <button class="btn btn-primary fw-semibold" id="new-game-btn">NEW GAME</button>
             </div>
         </div>
     </div>
 
     <!-- Sound toggle -->
-    <div class="sound-and-remaining-guesses-wrapper d-flex justify-content-between align-items-baseline">
-        <div class="form-check form-switch sound-toggle-wrapper d-flex align-items-center gap-1 m-3">
-            <input class="form-check-input" type="checkbox" role="switch" id="soundsToggle" />
-            <label class="form-check-label" for="soundsToggle">Sounds</label>
+    <div class="sound-and-remaining-guesses-wrapper d-flex justify-content-between align-items-center">
+        <div class="sound-toggle-wrapper form-check form-switch d-flex flex-column justify-content-center gap-1 m-3">
+
+            <div class="d-flex align-items-center gap1">
+                <input class="form-check-input" type="checkbox" role="switch" id="all-sounds-toggle" />
+                <label class="form-check-label" for="allSoundsToggle">All Sounds</label>
+            </div>
+
+            <div class="d-flex align-items-center gap-1">
+                <input class="form-check-input" type="checkbox" role="switch" id="bulls-cows-sounds-toggle" />
+                <label class="form-check-label" for="soundsToggle">Bulls/Cows Sounds</label>
+            </div>
+
+            <div class="d-flex align-items-center gap-1">
+                <input class="form-check-input" type="checkbox" role="switch" id="win-lose-sounds-toggle" />
+                <label class="form-check-label" for="winLoseToggle">Win/Lose Sounds</label>
+            </div>
         </div>
 
         <div class="remaining-guesses-wrapper m-3">
@@ -68,33 +81,38 @@
         <div class="secret-number-wrapper d-flex gap-3 mb-5" id="secret-number-wrap">
         </div>
 
+        <!-- Error message -->
         <p id="error-msg" class="p-2 text-uppercase fw-bold"></p>
 
-        <div class="wrapper-testing d-flex justify-content-center w-100">
+        <div class="d-flex justify-content-center w-100">
+
+            <!-- Cows wrapper -->
             <div class="cows-wrapper text-center">
                 <p>Cows:</p>
                 <span id="cows-number">0</span>
             </div>
 
+            <!-- Guessing wrapper -->
             <div class="input-and-buttons-wrapper mb-2 w-100 d-flex flex-column justify-content-center align-items-center">
                 <input type="number" id="guess" class="form-control w-50 border-1 border-black mb-2" />
-                <div class="btn btn-success mb-2" id="guess-btn">GUESS</div>
+                <div class="btn btn-success mb-2 w-25 fw-semibold" id="guess-btn">GUESS</div>
                 <div class="btn btn-outline-primary" id="open-new-game-modal-btn">NEW GAME</div>
             </div>
 
+            <!-- Bulls wrapper -->
             <div class="bulls-wrapper text-center">
                 <p>Bulls:</p>
                 <span id="bulls-number">0</span>
             </div>
         </div>
 
+        <!-- Guess history wrapper -->
         <div class="guesses-wrapper d-flex flex-column justify-content-center align-items-center" id="guess-history">
             <p>Guesses:</p>
         </div>
     </main>
 
     <script type="module" src="scripts/game.js"></script>
-    <script type="module" src="scripts/modal.js"></script>
 </body>
 
 </html>
