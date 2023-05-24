@@ -15,7 +15,6 @@ document.getElementById('guess-btn').addEventListener('click', guess);
 let rand = randUniqueDigits(numberOfDigits);
 let numberOfGuesses = numberOfGuessesDict[numberOfDigits];
 function guess() {
-
     if (!guessInput.value || isNaN(guessInput.value) || guessInput.value.length !== numberOfDigits) {
         errorMsgEl.innerHTML = `You must enter a ${numberOfDigits}-digit number!`;
         return;
@@ -47,10 +46,6 @@ function guess() {
         guessHistoryEl.lastElementChild.classList.add('winning-guess');
         return;
     }
-
-    // TODO get a few more cow sounds into an array and choose a random one to play (audio-player.js)
-    console.log(`cows: ${cows}`);
-    console.log(`bulls: ${bulls}`);
 }
 
 function getBullsAndCows(randomNumberStr, guessValue) {
@@ -101,7 +96,5 @@ function revealNumbers() {
         }, index * 300);
     });
 }
-
-document.getElementById('log-btn').onclick = () => console.log(numberOfGuesses);
 
 export { newGame };
