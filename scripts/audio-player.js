@@ -1,18 +1,38 @@
-const cowSounds = [];
-const bullSounds = [];
+import { bullsCowsToggleChecked, winLoseToggleChecked } from "./sound-toggles-listeners.js";
 
-function playAudio(bulls, cows) {
-    if (!document.getElementById('soundsToggle').checked) {
+const cowSound = 'sounds/cow.mp3';
+const bullSound = 'sounds/bull.mp3';
+const winSound = 'sounds/win.mp3';
+const loseSound = 'sounds/lose.mp3';
+
+function playCowsAndBullsAudio(bulls, cows) {
+    if (!bullsCowsToggleChecked()) {
         return;
     }
 
-    for (let i = 0; i < bulls; i++) {
-        setTimeout(() => new Audio(bullSounds[Math.floor(Math.random() * bullSounds.length)]).play(), i * 300);
+    if (bulls > 0) {
+        playAudioFile(bullSound);
     }
-    
-    for (let i = 0; i < cows; i++) {
-        setTimeout(() => new Audio(cowSounds[Math.floor(Math.random() * cowSounds.length)]).play(), i * 300);
+
+    if (cows > 0) {
+        playAudioFile(cowSound);
     }
 }
 
-export { playAudio };
+function playWinAudio() {
+    if (winLoseToggleChecked()) {
+        playAudioFile(winSound);
+    }
+}
+
+function playLoseAudio() {
+    if (winLoseToggleChecked()) {
+        playAudioFile(loseSound);
+    }
+}
+
+function playAudioFile(filePath) {
+    new Audio(filePath).play();
+}
+
+export { playCowsAndBullsAudio, playWinAudio, playLoseAudio };
