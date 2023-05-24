@@ -1,6 +1,6 @@
 import { digitsArray, generateRandomNumberWithUniqueDigits as randUniqueDigits } from './random-number-generator.js';
 import { guessesRemainingEl, numberOfDigits, numberOfGuessesDict } from './modal.js';
-import { playAudio } from './audio-player.js';
+import { playCowsAndBullsAudio, playLoseAudio, playWinAudio } from './audio-player.js';
 
 const bullsNumberEl = document.getElementById('bulls-number');
 const cowsNumberEl = document.getElementById('cows-number');
@@ -8,9 +8,10 @@ const guessInput = document.getElementById('guess');
 const guessHistoryEl = document.getElementById('guess-history');
 const errorMsgEl = document.getElementById('error-msg');
 const confettiEl = document.getElementById('confetti-element');
+const guessBtn = document.getElementById('guess-btn');
 
 guessInput.value = '';
-document.getElementById('guess-btn').addEventListener('click', guess);
+guessBtn.addEventListener('click', guess);
 
 let rand = randUniqueDigits(numberOfDigits);
 let numberOfGuesses = numberOfGuessesDict[numberOfDigits];
@@ -26,6 +27,7 @@ function guess() {
 
     if (numberOfGuesses <= 0) {
         revealNumbers();
+        playLoseAudio();
         errorMsgEl.innerHTML = `You lost!`;
         errorMsgEl.classList.add('game-lost');
         return;
@@ -38,13 +40,14 @@ function guess() {
 
     addGuessValToHistory(guessVal);
     updateBullsAndCowsNumbers(bulls, cows);
-    playAudio(bulls, cows);
 
     if (bulls === numberOfDigits) {
         revealNumbers();
+        playWinAudio();
         confettiEl.style.display = 'flex';
         guessHistoryEl.lastElementChild.classList.add('winning-guess');
-        return;
+    } else {
+        playCowsAndBullsAudio(bulls, cows);
     }
 }
 
@@ -71,6 +74,7 @@ function getBullsAndCows(randomNumberStr, guessValue) {
 function addGuessValToHistory(guessVal) {
     const span = document.createElement('span');
     span.innerHTML = guessVal;
+    span.classList.add('p-1');
     guessHistoryEl.appendChild(span);
 }
 
@@ -82,6 +86,8 @@ function updateBullsAndCowsNumbers(bulls, cows) {
 function newGame(digitNumber) {
     rand = randUniqueDigits(digitNumber);
     numberOfGuesses = numberOfGuessesDict[digitNumber];
+    bullsNumberEl.innerHTML = 0;
+    cowsNumberEl.innerHTML = 0;
     guessInput.value = '';
     errorMsgEl.style.display = 'none';
     confettiEl.style.display = 'none';
