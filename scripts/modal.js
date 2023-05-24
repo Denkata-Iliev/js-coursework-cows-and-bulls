@@ -20,24 +20,31 @@ rangeInput.value = 5;
 rangeInput.oninput = () => rangeInputLabel.innerHTML = `Digits: ${rangeInput.value}`;
 
 openNewGameModal.onclick = () => modal.style.display = 'block';
-closeBtn.onclick = () => modal.style.display = 'none';
+closeBtn.onclick = closeModal;
+newGameBtn.onclick = startNewGame;
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = event => {
     if (event.target == modal) {
-        modal.style.display = 'none';
+        closeModal();
     }
+}
+
+function closeModal() {
+    modal.style.display = 'none';
 }
 
 let numberOfDigits = parseInt(rangeInput.value);
 guessesRemainingEl.innerHTML = numberOfGuessesDict[numberOfDigits];
-newGameBtn.onclick = () => {
+function startNewGame() {
     numberOfDigits = parseInt(rangeInput.value);
     newGame(numberOfDigits);
+
     rangeInput.value = numberOfDigits;
     rangeInputLabel.innerHTML = `Digits: ${rangeInput.value}`;
     guessesRemainingEl.innerHTML = numberOfGuessesDict[numberOfDigits];
-    modal.style.display = 'none';
+
+    closeModal();
 
     createSecretNumberCircles(numberOfDigits);
 }
