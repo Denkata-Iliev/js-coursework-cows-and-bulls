@@ -12,6 +12,11 @@ const guessBtn = document.getElementById('guess-btn');
 
 guessInput.value = '';
 guessBtn.addEventListener('click', guess);
+guessInput.addEventListener('keypress', event => {
+    if (event.key === 'Enter') {
+        guess();
+    }
+});
 
 let rand = randUniqueDigits(numberOfDigits);
 let numberOfGuesses = numberOfGuessesDict[numberOfDigits];
