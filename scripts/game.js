@@ -43,7 +43,7 @@ function guess() {
     numberOfGuesses--;
     guessesRemainingEl.innerHTML = numberOfGuesses;
 
-    addGuessValToHistory(guessVal);
+    addGuessValToHistory(guessVal, bulls, cows);
     updateBullsAndCowsNumbers(bulls, cows);
 
     if (bulls === numberOfDigits) {
@@ -76,9 +76,9 @@ function getBullsAndCows(randomNumberStr, guessValue) {
     return [cows, bulls];
 }
 
-function addGuessValToHistory(guessVal) {
+function addGuessValToHistory(guessVal, bulls, cows) {
     const span = document.createElement('span');
-    span.innerHTML = guessVal;
+    span.innerHTML = `C${cows} - ${guessVal} - B${bulls}`;
     span.classList.add('p-1');
     guessHistoryEl.appendChild(span);
 }
